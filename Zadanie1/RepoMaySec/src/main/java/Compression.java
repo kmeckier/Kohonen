@@ -15,4 +15,22 @@ public class Compression {
         }
         return compressedFrames;
     }
+
+    public int[][] fromAvg(PixelFrame[][] pixelFrames, int image_size, int frame_size) {
+        int[][] imageFromAvg = new int[image_size][image_size];
+        for (int i = 0; i < pixelFrames.length; i++) {
+            for (int j = 0; j < pixelFrames[0].length; j++) {
+                int pixelFrameAvg = pixelFrames[i][j].getAvg();
+                for (int y = 0; y < frame_size; y++) {
+                    for (int x = 0; x < frame_size; x++) {
+                        int tempX = i * frame_size + x;
+                        int tempY = j * frame_size + y;
+                        imageFromAvg[tempX][tempY] = pixelFrameAvg;
+                    }
+                }
+            }
+        }
+
+        return imageFromAvg;
+    }
 }

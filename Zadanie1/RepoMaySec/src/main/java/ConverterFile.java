@@ -37,6 +37,6 @@ public class ConverterFile {
 
         double[] normalizedPixelVector = Normalization.normalizeVector(pixelVector);
         double vectorSqrtSum = Normalization.calculateEuclideanNorm(pixelVector);
-        return new PixelFrame(normalizedPixelVector, vectorSqrtSum);
+        return new PixelFrame(pixelVector);
     }
 }

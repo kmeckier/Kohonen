@@ -1,9 +1,12 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
 public class Helper {
     public static int findMinValueIndex(List<Double> list) {
+
+
         Integer i = 0;
         Double min = null;
         int minIndex = -1;
@@ -20,7 +23,6 @@ public class Helper {
     }
 
     public static int[] convert2darrayto1d(int[][] array2D) {
-        System.out.println(array2D);
         int[] arrayToReturn = new int[array2D.length * array2D.length];
 
         for (int i = 0; i < array2D.length; i++) {

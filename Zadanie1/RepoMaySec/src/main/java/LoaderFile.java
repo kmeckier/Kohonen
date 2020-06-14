@@ -16,10 +16,6 @@ public class LoaderFile {
         Raster raster = img.getData();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (x == 0 && y == 0) {
-                    System.out.println("HERE");
-                    System.out.println(raster.getSample(x, y, 0));
-                }
                 imgArr[x][y] = raster.getSample(y, x, 0);
             }
         }

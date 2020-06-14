@@ -12,6 +12,7 @@ public class PixelFrame {
         this.brightness = brightness;
     }
 
+
     public double[] getPixels() {
         return pixels;
     }
@@ -26,5 +27,13 @@ public class PixelFrame {
 
     public void setBrightness(double brightness) {
         this.brightness = brightness;
+    }
+
+    public int getAvg() {
+        int sum = 0;
+        for (int i = 0; i < pixels.length; i++) {
+            sum += (int) pixels[i];
+        }
+        return sum / pixels.length;
     }
 }
