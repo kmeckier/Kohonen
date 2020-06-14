@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Main {
 
-    public static final String INPUT_FILE = "lena.png";
+    public static final String INPUT_FILE = "test.png";
     public static final Integer NUMBER_OF_NEURONS = 100;
     public static final Integer FRAME_SIZE = 4;
     public static final Double TRAINING_STEP = 0.001;
@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String... args) throws IOException {
 
-        Integer minimalWinnerCounter = 10;
+        Integer minimalWinnerCounter = 1;
         Integer bitsPerWeight = 8;
 
         LoaderFile imageLoader = new LoaderFile();

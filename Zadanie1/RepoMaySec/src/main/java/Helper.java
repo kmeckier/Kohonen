@@ -20,6 +20,7 @@ public class Helper {
     }
 
     public static int[] convert2darrayto1d(int[][] array2D) {
+        System.out.println(array2D);
         int[] arrayToReturn = new int[array2D.length * array2D.length];
 
         for (int i = 0; i < array2D.length; i++) {
