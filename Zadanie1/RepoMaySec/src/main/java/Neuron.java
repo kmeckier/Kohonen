@@ -10,10 +10,17 @@ public class Neuron {
 
     double calculateOutput(double[] inputs) {
         double sum = 0;
+        double inputsSum = 0;
+        double weightsSum = 0;
         for (int i = 0; i < weights.length; i++) {
             sum += Math.pow(inputs[i] - weights[i], 2);
+            inputsSum += inputs[i];
+            weightsSum += weights[i];
         }
-        return Math.sqrt(sum);
+        // rozne sposoby obliczania odleglosci (podobienstwa) pomiedzy neuronem a ramka
+        // return Math.pow((inputsSum/inputs.length) - (weightsSum/weights.length), 2);
+        return Math.abs((inputsSum / inputs.length) - (weightsSum / weights.length));
+        // return Math.sqrt(sum);
     }
 
     void modifyWeights(double[] inputs, double learningStep) {
@@ -23,7 +30,6 @@ public class Neuron {
             weights[i] += learningStep * (inputs[i] - weights[i]);
         }
 
-        this.weights = Normalization.normalizeVector(weights);
     }
 
     double[] getWeights() {

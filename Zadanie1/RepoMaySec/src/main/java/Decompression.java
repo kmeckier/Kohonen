@@ -9,7 +9,8 @@ public class Decompression {
         this.kohonenNetwork = kohonenNetwork;
         this.frameWidthHeight = frameWidthHeight;
         this.compressedFrames = compressedFrames;
-        this.decompressedImage = new int[compressedFrames.length * frameWidthHeight][compressedFrames[0].length * frameWidthHeight];
+        this.decompressedImage = new int[compressedFrames.length * frameWidthHeight][compressedFrames[0].length
+                * frameWidthHeight];
     }
 
     public int[][] decompressImage() {
@@ -22,12 +23,12 @@ public class Decompression {
                 CompressedFrame compressedFrame = this.compressedFrames[compressedFramePositionX][compressedFramePositionY];
                 int winningNeuronIndex = compressedFrame.getWinningNeuronIndex();
                 double[] pixels = this.kohonenNetwork.getNeuronWeights(winningNeuronIndex);
-                int[] denormalizedPixels = Normalization.denormalizeVector(pixels, compressedFrame.getBrightness());
+
                 int[] pixelsInt = new int[pixels.length];
                 for (int i = 0; i < pixels.length; i++) {
                     pixelsInt[i] += (int) Math.round(pixels[i]);
                 }
-                this.savePixelsToImage(denormalizedPixels, imageStartPixelPositionX, imageStartPixelPositionY);
+                this.savePixelsToImage(pixelsInt, imageStartPixelPositionX, imageStartPixelPositionY);
 
                 imageStartPixelPositionY += this.frameWidthHeight;
             }
@@ -36,14 +37,16 @@ public class Decompression {
         return this.decompressedImage.clone();
     }
 
-    private void savePixelsToImage(int[] denormalizedPixels, int imageStartPixelPositionX, int imageStartPixelPositionY) {
-        for (int imagePixelPositionX = imageStartPixelPositionX; imagePixelPositionX < imageStartPixelPositionX + frameWidthHeight; imagePixelPositionX++) {
-            int denormalizedPixelsVectorIndex = 0;
+    private void savePixelsToImage(int[] pixels, int imageStartPixelPositionX, int imageStartPixelPositionY) {
+        for (int imagePixelPositionX = imageStartPixelPositionX; imagePixelPositionX < imageStartPixelPositionX
+                + frameWidthHeight; imagePixelPositionX++) {
+            int pixelsVectorIndex = 0;
 
-            for (int imagePixelPositionY = imageStartPixelPositionY; imagePixelPositionY < imageStartPixelPositionY + frameWidthHeight; imagePixelPositionY++) {
-                int pixelValue = denormalizedPixels[denormalizedPixelsVectorIndex];
+            for (int imagePixelPositionY = imageStartPixelPositionY; imagePixelPositionY < imageStartPixelPositionY
+                    + frameWidthHeight; imagePixelPositionY++) {
+                int pixelValue = pixels[pixelsVectorIndex];
                 decompressedImage[imagePixelPositionX][imagePixelPositionY] = pixelValue;
-                denormalizedPixelsVectorIndex++;
+                pixelsVectorIndex++;
             }
 
         }

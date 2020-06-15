@@ -6,7 +6,6 @@ import java.util.Random;
 public class Helper {
     public static int findMinValueIndex(List<Double> list) {
 
-
         Integer i = 0;
         Double min = null;
         int minIndex = -1;
@@ -38,6 +37,15 @@ public class Helper {
         Random random = new Random();
         for (int i = 0; i < weightsCount; i++) {
             weights[i] = random.nextDouble();
+        }
+        return weights;
+    }
+
+    public static double[] generateRandom0to255Weights(int weightsCount) {
+        double[] weights = new double[weightsCount];
+        Random random = new Random();
+        for (int i = 0; i < weightsCount; i++) {
+            weights[i] = random.nextDouble() * 255;
         }
         return weights;
     }

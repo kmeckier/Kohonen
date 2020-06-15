@@ -31,14 +31,13 @@ public class GeneratorRandomPixels {
         int firstColumnIndex = this.random.nextInt(bound);
 
         double[] pixelVector = new double[this.frameWidthHeight * this.frameWidthHeight];
-
+        int pixelVectorIndex = 0;
         for (int i = firstRowIndex; i < firstRowIndex + frameWidthHeight; i++) {
-            for (int j = firstColumnIndex, pixelVectorIndex = 0; j < firstColumnIndex + this.frameWidthHeight; j++, pixelVectorIndex++) {
+            for (int j = firstColumnIndex; j < firstColumnIndex + this.frameWidthHeight; j++, pixelVectorIndex++) {
                 pixelVector[pixelVectorIndex] = this.image[i][j];
             }
         }
 
-        pixelVector = Normalization.normalizeVector(pixelVector);
         return new PixelFrame(pixelVector);
     }
 }

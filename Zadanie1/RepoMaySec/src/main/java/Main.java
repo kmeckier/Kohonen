@@ -5,15 +5,15 @@ public class Main {
 
     public static final String INPUT_FILE = "lena.png";
     public static final Integer NUMBER_OF_NEURONS = 100;
-    public static final Integer FRAME_SIZE = 4;
-    public static final Double TRAINING_STEP = 0.001;
+    public static final Integer FRAME_SIZE = 8;
+    public static final Double TRAINING_STEP = 0.01;
     public static final Integer PATTERNS_COUNT = 100;
     public static final Integer AGES_COUNT = 100;
     public static final Integer IMAGE_SIZE = 512;
 
     public static void main(String... args) throws IOException {
 
-        Integer minimalWinnerCounter = 1;
+        Integer minimalWinnerCounter = 0;
         Integer bitsPerWeight = 8;
 
         LoaderFile imageLoader = new LoaderFile();
@@ -42,16 +42,20 @@ public class Main {
 
         int[][] imageFromAvg = compression.fromAvg(pixelFrames, IMAGE_SIZE, FRAME_SIZE);
 
+        int[][] imageWithoutNormalization = compression.withoutNormalization(pixelFrames, IMAGE_SIZE, FRAME_SIZE);
+
         Decompression decompression = new Decompression(kohonenNetwork, compressedFrames, FRAME_SIZE);
         int[][] decompressedImage = decompression.decompressImage();
 
-        imageLoader.saveImageToFile(imageFromAvg, "result.png", IMAGE_SIZE);
+        imageLoader.saveImageToFile(imageWithoutNormalization, "result.png", IMAGE_SIZE);
+
+        imageLoader.saveImageToFile(imageFromAvg, "resultAvg.png", IMAGE_SIZE);
 
         KohonenOutputs kohonenOutputs = new KohonenOutputs();
 
         double compressionRate = kohonenOutputs.calculateCompressionRate(IMAGE_SIZE, FRAME_SIZE, compressedFrames,
                 bitsPerWeight, NUMBER_OF_NEURONS);
-        double psnr = kohonenOutputs.calculatePSNR(originalImage, decompressedImage);
+        double psnr = kohonenOutputs.calculatePSNR(originalImage, imageWithoutNormalization);
 
         System.out.println("Współczynnik kompresji:  " + compressionRate);
         System.out.println("Wartość miary PSNR: " + psnr);

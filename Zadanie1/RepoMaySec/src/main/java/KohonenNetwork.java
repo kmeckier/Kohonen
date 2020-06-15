@@ -12,9 +12,8 @@ public class KohonenNetwork {
         this.minimalWinnerCount = minimalWinnerCount;
 
         for (int i = 0; i < neuronsCount; i++) {
-            double[] weights = Helper.generateRandomWeights(weightsCount);
-            double[] normalizedWeights = Normalization.normalizeVector(weights);
-            neurons.add(new Neuron(normalizedWeights));
+            double[] weights = Helper.generateRandom0to255Weights(weightsCount);
+            neurons.add(new Neuron(weights));
         }
     }
 
